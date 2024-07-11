@@ -1,20 +1,39 @@
-/**
- * router/index.ts
- *
- * Automatic routes for `./src/pages/*.vue`
- */
-
-// Composables
-import { createRouter, createWebHistory } from 'vue-router/auto'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts'
-import { routes } from 'vue-router/auto-routes'
+
+const appRoutes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('@/pages/index.vue'),
+  },
+  {
+    path: '/auth/login',
+    name: 'Login',
+    component: () => import('@/pages/auth/index.vue'),
+  },
+  {
+    path: '/auth/cadastrar',
+    name: 'Cadastro de Usuário',
+    component: () => import('@/pages/auth/CreateAccount.vue'),
+  },
+  {
+    path: '/auth/recuperar-senha',
+    name: 'Recuperar Senha',
+    component: () => import('@/pages/auth/RefreshPassword.vue'),
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('@/pages/admin/index.vue'),
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: setupLayouts(routes),
+  routes: setupLayouts(appRoutes),
 })
 
-// Workaround for https://github.com/vitejs/vite/issues/11804
 router.onError((err, to) => {
   if (err?.message?.includes?.('Failed to fetch dynamically imported module')) {
     if (!localStorage.getItem('vuetify:dynamic-reload')) {
