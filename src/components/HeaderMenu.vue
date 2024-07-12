@@ -1,31 +1,50 @@
 <template>
   <v-app-bar class="border-bottom" flat flex justify="space-between">
-    <v-app-bar-nav-icon @click="toggleDrawer" />
+    <v-app-bar-nav-icon v-show="null!==isDrawerOpen" @click="toggleDrawer" />
     <v-app-bar-title>
-      <RouterLink class="text-decoration-none" to="/"> Dataprev </RouterLink>
+      <router-link class="text-decoration-none" to="/"> Dataprev </router-link>
     </v-app-bar-title>
     <div>
-      <RouterLink to="/auth/login">
+      <router-link to="/auth/login">
         <v-btn prepend-icon="mdi-login">Login</v-btn>
-      </RouterLink>
+      </router-link>
     </div>
   </v-app-bar>
+  <v-navigation-drawer v-if="null!==isDrawerOpen" v-model="drawerOpen" />
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  export default defineComponent({
+  import { RouterLink } from 'vue-router'
 
+  export default defineComponent({
+    components: {
+      RouterLink,
+    },
     props: {
       isDrawerOpen: {
         type: Boolean,
-        default: false,
+        default: null,
       },
     },
     emits: ['update:is-drawer-open'],
+    computed: {
+      drawerOpen: {
+        get () {
+          return this.isDrawerOpen
+        },
+        set (value) {
+          if (this.isDrawerOpen !== null) {
+            this.$emit('update:is-drawer-open', value)
+          }
+        },
+      },
+    },
     methods: {
       toggleDrawer () {
-        this.$emit('update:is-drawer-open', !this.isDrawerOpen)
+        if (this.isDrawerOpen !== null) {
+          this.drawerOpen = !this.drawerOpen
+        }
       },
     },
   })
