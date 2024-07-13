@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts'
+import { useUserAppStore } from '@/stores/user'
+import { computed } from 'vue'
 
 const appRoutes: RouteRecordRaw[] = [
   {
@@ -26,6 +28,7 @@ const appRoutes: RouteRecordRaw[] = [
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('@/pages/dashboard/index.vue'),
+    meta: { requiresAuth: true, requiresRole: ['user', 'publisher', 'admin'] },
   },
 ]
 
@@ -50,6 +53,37 @@ router.onError((err, to) => {
 
 router.isReady().then(() => {
   localStorage.removeItem('vuetify:dynamic-reload')
+})
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserAppStore()
+  const isAuthenticated = !!userStore.userId
+
+  const user = computed(() => {
+    const loadedUser = userStore.loadUser()
+    return {
+      userId: loadedUser.userId || '',
+      email: loadedUser.email || '',
+      roles: loadedUser.roles ? JSON.parse(loadedUser.roles) : [],
+    }
+  })
+
+  const hasRole = (roleNames: string[]) => {
+    return roleNames.some(roleName => user.value.roles.some((role: any) => role.name === roleName))
+  }
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+    next({ path: '/auth/login', query: { redirect: to.fullPath } })
+  } else if (to.matched.some(record => record.meta.requiresRole)) {
+    const requiredRoles = to.meta.requiresRole as string[]
+    if (!hasRole(requiredRoles)) {
+      next({ path: '/' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
