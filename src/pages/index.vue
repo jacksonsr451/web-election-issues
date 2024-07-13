@@ -2,9 +2,8 @@
   <v-app>
     <DrawerMenu />
     <HeaderMenu />
-    <v-main>
-      ##
-    </v-main>
+    <v-main />
+    <FooterMenu />
   </v-app>
 </template>
 

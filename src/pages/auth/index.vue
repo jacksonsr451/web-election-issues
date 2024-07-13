@@ -69,6 +69,7 @@
         </v-card-text>
       </v-card>
     </v-main>
+    <FooterMenu />
   </v-app>
 </template>
 

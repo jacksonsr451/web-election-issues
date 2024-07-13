@@ -72,6 +72,7 @@
         </v-col>
       </v-row>
     </v-main>
+    <FooterMenu />
   </v-app>
 </template>
 

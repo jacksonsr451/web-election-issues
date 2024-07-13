@@ -23,6 +23,7 @@
         </v-btn>
       </v-card>
     </v-main>
+    <FooterMenu />
   </v-app>
 </template>
 

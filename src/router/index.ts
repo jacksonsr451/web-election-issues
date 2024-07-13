@@ -77,7 +77,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some(record => record.meta.requiresRole)) {
     const requiredRoles = to.meta.requiresRole as string[]
     if (!hasRole(requiredRoles)) {
-      next({ path: '/' })
+      next({ path: '/', query: { redirect: to.fullPath } })
     } else {
       next()
     }
