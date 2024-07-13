@@ -1,6 +1,6 @@
 <template>
   <v-app-bar class="border-bottom" flat flex justify="space-between">
-    <v-app-bar-nav-icon @click="toggleDrawer" />
+    <v-app-bar-nav-icon v-show="hasRole(['user', 'publisher', 'admin']) && token" @click="toggleDrawer" />
     <v-app-bar-title>
       <router-link class="text-decoration-none" to="/"> Dataprev </router-link>
     </v-app-bar-title>
@@ -21,6 +21,7 @@
   import { useAuthAppStore } from '@/stores/auth'
   import { serverLogout } from '@/services/server'
   import { useDrawerStore } from '@/stores/drawer'
+  import { useUserAppStore } from '@/stores/user'
 
   const authStore = useAuthAppStore()
   const drawerStore = useDrawerStore()
@@ -28,6 +29,21 @@
   const router = useRouter()
 
   const toggleDrawer = () => drawerStore.toggleVisible()
+
+  const userStore = useUserAppStore()
+
+  const user = computed(() => {
+    const loadedUser = userStore.loadUser()
+    return {
+      userId: loadedUser.userId || '',
+      email: loadedUser.email || '',
+      roles: loadedUser.roles ? JSON.parse(loadedUser.roles) : [],
+    }
+  })
+
+  const hasRole = (roleNames: string[]) => {
+    return roleNames.some(roleName => user.value.roles.some((role: any) => role.name === roleName))
+  }
 
   const logout = async () => {
     await serverLogout()

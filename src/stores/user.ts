@@ -39,14 +39,17 @@ export const useUserAppStore = defineStore('user', {
       localStorage.removeItem('email')
       localStorage.removeItem('roles')
     },
+
     loadUser () {
       const userId = localStorage.getItem('user_id')
       const email = localStorage.getItem('email')
       const roles = localStorage.getItem('roles')
 
-      this.userId = userId || ''
-      this.email = email || ''
-      this.roles = roles ? JSON.parse(roles) : []
+      return {
+        userId,
+        email,
+        roles,
+      }
     },
   },
 })
