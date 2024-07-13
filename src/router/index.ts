@@ -23,9 +23,9 @@ const appRoutes: RouteRecordRaw[] = [
     component: () => import('@/pages/auth/RefreshPassword.vue'),
   },
   {
-    path: '/admin',
-    name: 'Admin',
-    component: () => import('@/pages/admin/index.vue'),
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/pages/dashboard/index.vue'),
   },
 ]
 

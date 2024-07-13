@@ -79,6 +79,8 @@
   import HeaderMenu from '@/components/HeaderMenu.vue'
 
   import { ref } from 'vue'
+  import { createUser } from '@/services/server'
+  import { useRouter } from 'vue-router'
 
   const email = ref('')
   const password = ref('')
@@ -86,6 +88,9 @@
   const formHasErrors = ref(false)
   const visiblePassword = ref(false)
   const visibleReplayPassword = ref(false)
+
+  const router = useRouter()
+
   const resetForm = () => {
     email.value = ''
     password.value = ''
@@ -93,14 +98,18 @@
     formHasErrors.value = false
   }
 
-  const submit = () => {
+  const submit = async () => {
     formHasErrors.value =
       !email.value ||
       !password.value ||
       !replayPassword.value ||
       replayPassword.value !== password.value
     if (!formHasErrors.value) {
-      console.log('Formulário enviado com sucesso!')
+      const response = await createUser(email.value, password.value)
+
+      console.log(response.data)
+
+      await router.push('/auth/login')
     }
   }
 </script>

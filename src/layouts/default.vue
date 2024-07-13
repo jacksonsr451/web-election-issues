@@ -4,10 +4,10 @@
       <router-view />
     </v-main>
 
-    <AppFooter />
+    <FooterMenu />
   </v-app>
 </template>
 
 <script lang="ts" setup>
-  //
+  import FooterMenu from '@/components/FooterMenu.vue'
 </script>
