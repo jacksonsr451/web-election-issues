@@ -116,3 +116,105 @@ export const getIssues = async () => {
     throw error
   }
 }
+
+type Option = {
+    text: string
+  }
+
+  type Question = {
+    text: string
+    options?: Option[]
+  }
+
+  type Issues = {
+    id?: string
+    type: string
+    title: string
+    location: string
+    year: number
+    questions?: Question[]
+  }
+
+export const createIssue = async (data: Issues) => {
+  try {
+    const token = getToken()
+    const jsonIssue = JSON.stringify(data)
+    const response = await axios.post<Issues>('http://localhost:8000/api/v1/election-issues/',
+      jsonIssue, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    return response.data
+  } catch (error) {
+    console.error('Error to user:', error)
+    throw error
+  }
+}
+
+export const updateIssue = async (id: string, data: Issues) => {
+  try {
+    const token = getToken()
+    const jsonIssue = JSON.stringify(data)
+    const response = await axios.put<Issues>(`http://localhost:8000/api/v1/election-issues/${id}`,
+      jsonIssue, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    return response.data
+  } catch (error) {
+    console.error('Error to user:', error)
+    throw error
+  }
+}
+
+export const deleteIssue = async (id: string) => {
+  try {
+    const token = getToken()
+    const response = await axios.delete(`http://localhost:8000/api/v1/election-issues/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error('Error to user:', error)
+    throw error
+  }
+}
+
+export const updateUser = async (id: string, data: any) => {
+  try {
+    const token = getToken()
+    const jsonIssue = JSON.stringify(data)
+    const response = await axios.put(`http://localhost:8000/api/v1/users/${id}`,
+      jsonIssue, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    return response.data
+  } catch (error) {
+    console.error('Error to user:', error)
+    throw error
+  }
+}
+
+export const deleteUser = async (id: string) => {
+  try {
+    const token = getToken()
+    const response = await axios.delete(`http://localhost:8000/api/v1/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error('Error to user:', error)
+    throw error
+  }
+}
