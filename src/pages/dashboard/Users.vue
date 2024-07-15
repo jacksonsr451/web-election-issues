@@ -2,6 +2,8 @@
   import { deleteUser, getIssues, getUsers, updateUser } from '@/services/server'
   import { Ref, UnwrapRef } from 'vue'
 
+  const roleOptions = ['user', 'guest', 'admin', 'publisher']
+
   type Role = {
     name: string
     permissions?: [
@@ -90,7 +92,7 @@
           <v-card-title>
             <v-dialog v-model="dialogIsOpen">
               <v-card>
-                <v-card-title>{{ isEditMode ? 'Editar Pesquisa' : 'Add Pesquisa' }}</v-card-title>
+                <v-card-title>{{ isEditMode ? 'Editar Usuário' : 'Add Usuáriou' }}</v-card-title>
                 <v-card-text>
                   <v-row v-if="isEditMode">
                     <v-text-field v-model="selectedUsers.id" label="ID" type="hidden" />
@@ -102,17 +104,21 @@
                   </v-row>
                   <v-row v-for="(role, qIndex) in selectedUsers.roles" :key="qIndex" class="mb-3">
                     <v-col cols="12">
-                      <v-text-field
-                        v-model="role.name"
-                        :label="'Question ' + (qIndex + 1)"
-                        placeholder="Adcione uma questão"
-                      />
+                      <v-col cols="12">
+                        <v-autocomplete
+                          v-model="role.name"
+                          item-text="name"
+                          item-value="name"
+                          :items="roleOptions"
+                          :label="'Role ' + (qIndex + 1)"
+                          placeholder="Adicione uma role"
+                        />
+                      </v-col>
                     </v-col>
-                  </v-row>
-                  <v-row class="d-flex justify-end">
-                    <v-btn color="primary" prepend-icon="mdi-plus" @click="addRole">Role</v-btn>
-                  </v-row>
-                </v-card-text>
+                    <v-row class="d-flex justify-end">
+                      <v-btn color="primary" prepend-icon="mdi-plus" @click="addRole">Role</v-btn>
+                    </v-row>
+                  </v-row></v-card-text>
 
                 <v-card-actions>
                   <v-btn color="error" icon @click="dialogIsOpen = false">
