@@ -30,6 +30,24 @@ const appRoutes: RouteRecordRaw[] = [
     component: () => import('@/pages/dashboard/index.vue'),
     meta: { requiresAuth: true, requiresRole: ['user', 'publisher', 'admin'] },
   },
+  {
+    path: '/dashboard/usuarios',
+    name: 'Dashboard - Usuários',
+    component: () => import('@/pages/dashboard/Users.vue'),
+    meta: { requiresAuth: true, requiresRole: ['admin', 'publisher'] },
+  },
+  {
+    path: '/dashboard/pesquisas',
+    name: 'Dashboard - Pesquisas',
+    component: () => import('@/pages/dashboard/Issues.vue'),
+    meta: { requiresAuth: true, requiresRole: ['admin', 'publisher'] },
+  },
+  {
+    path: '/dashboard/configuracoes',
+    name: 'Dashboard - Configurações',
+    component: () => import('@/pages/dashboard/Settings.vue'),
+    meta: { requiresAuth: true, requiresRole: ['admin'] },
+  },
 ]
 
 const router = createRouter({
@@ -57,7 +75,6 @@ router.isReady().then(() => {
 
 router.beforeEach((to, from, next) => {
   const userStore = useUserAppStore()
-  const isAuthenticated = !!userStore.userId
 
   const user = computed(() => {
     const loadedUser = userStore.loadUser()
@@ -72,10 +89,11 @@ router.beforeEach((to, from, next) => {
     return roleNames.some(roleName => user.value.roles.some((role: any) => role.name === roleName))
   }
 
-  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+  if (to.matched.some(record => record.meta.requiresAuth) && !user.value) {
     next({ path: '/auth/login', query: { redirect: to.fullPath } })
   } else if (to.matched.some(record => record.meta.requiresRole)) {
     const requiredRoles = to.meta.requiresRole as string[]
+    console.log(!hasRole(requiredRoles))
     if (!hasRole(requiredRoles)) {
       next({ path: '/', query: { redirect: to.fullPath } })
     } else {

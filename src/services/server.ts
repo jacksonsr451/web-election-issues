@@ -71,6 +71,23 @@ export const getUser = async () => {
   }
 }
 
+export const getUsers = async () => {
+  try {
+    const token = getToken()
+
+    const response = await axios.get('http://localhost:8000/api/v1/users/', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    return response.data
+  } catch (error) {
+    console.error('Error to user:', error)
+    throw error
+  }
+}
+
 export const createUser = async (email: string, password: string) => {
   try {
     const response = await axios.post('http://localhost:8000/api/v1/users/', {
@@ -78,6 +95,21 @@ export const createUser = async (email: string, password: string) => {
       password,
     })
 
+    return response.data
+  } catch (error) {
+    console.error('Error to user:', error)
+    throw error
+  }
+}
+
+export const getIssues = async () => {
+  try {
+    const token = getToken()
+    const response = await axios.get('http://localhost:8000/api/v1/election-issues/', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     return response.data
   } catch (error) {
     console.error('Error to user:', error)

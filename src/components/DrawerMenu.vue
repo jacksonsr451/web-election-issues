@@ -5,8 +5,7 @@
       <v-list-item v-show="hasRole(['user', 'publisher', 'admin'])" prepend-icon="mdi-home" @click="navigateTo('/')">Home</v-list-item>
       <v-list-item v-show="hasRole(['user', 'publisher', 'admin'])" prepend-icon="mdi-account" @click="navigateTo('/dashboard/pesquisas')">Pesquisas</v-list-item>
       <v-list-subheader v-show="hasRole(['publisher', 'admin'])">Gerenciamento</v-list-subheader>
-      <v-list-item v-show="hasRole(['publisher', 'admin'])" prepend-icon="mdi-account" @click="navigateTo('/dashboard/aplicadores')">Aplicadores</v-list-item>
-      <v-list-item v-show="hasRole(['admin'])" prepend-icon="mdi-pencil" @click="navigateTo('/dashboard/editores')">Editores</v-list-item>
+      <v-list-item v-show="hasRole(['publisher', 'admin'])" prepend-icon="mdi-account" @click="navigateTo('/dashboard/usuarios')">Usuários</v-list-item>
       <v-list-subheader v-show="hasRole(['admin'])">Settings</v-list-subheader>
       <v-list-item v-show="hasRole(['admin'])" prepend-icon="mdi-cog" @click="navigateTo('/dashboard/configuracoes')">Configurações</v-list-item>
       <v-spacer />
