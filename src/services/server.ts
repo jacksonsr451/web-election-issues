@@ -3,6 +3,8 @@ import { jwtDecode } from 'jwt-decode'
 import { useUserAppStore } from '@/stores/user'
 import { useAuthAppStore } from '@/stores/auth'
 
+const baseURI = 'http://localhost:8000'
+
 interface DecodedToken {
   sub: string
   exp: number
@@ -19,7 +21,7 @@ const getUserIdFromToken = (token: string) => {
 
 export const serverLogin = async (email: string, password: string) => {
   try {
-    const response = await axios.post('http://localhost:8000/api/v1/login', {
+    const response = await axios.post(`${baseURI}/api/v1/login`, {
       email,
       password,
     })
@@ -44,7 +46,7 @@ export const serverLogout = async () => {
   userStore.unsetUser()
 
   try {
-    const response = await axios.get('http://localhost:8000/api/v1/logout', {
+    const response = await axios.get(`${baseURI}/api/v1/logout`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -68,7 +70,7 @@ export const getUser = async () => {
 
     const userId = token ? getUserIdFromToken(token) : null
 
-    const response = await axios.get(`http://localhost:8000/api/v1/users/${userId}`, {
+    const response = await axios.get(`${baseURI}/api/v1/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -90,7 +92,7 @@ export const getUsers = async () => {
   try {
     const token = getToken()
 
-    const response = await axios.get('http://localhost:8000/api/v1/users/', {
+    const response = await axios.get(`${baseURI}/api/v1/users/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -110,7 +112,7 @@ export const getUsers = async () => {
 
 export const createUser = async (email: string, password: string) => {
   try {
-    const response = await axios.post('http://localhost:8000/api/v1/users/', {
+    const response = await axios.post(`${baseURI}/api/v1/users/`, {
       email,
       password,
     })
@@ -130,7 +132,7 @@ export const createUser = async (email: string, password: string) => {
 export const getIssues = async () => {
   try {
     const token = getToken()
-    const response = await axios.get('http://localhost:8000/api/v1/election-issues/', {
+    const response = await axios.get(`${baseURI}/api/v1/election-issues/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -169,7 +171,7 @@ export const createIssue = async (data: Issues) => {
   try {
     const token = getToken()
     const jsonIssue = JSON.stringify(data)
-    const response = await axios.post<Issues>('http://localhost:8000/api/v1/election-issues/',
+    const response = await axios.post<Issues>(`${baseURI}/api/v1/election-issues/`,
       jsonIssue, {
         headers: {
           'Content-Type': 'application/json',
@@ -192,7 +194,7 @@ export const updateIssue = async (id: string, data: Issues) => {
   try {
     const token = getToken()
     const jsonIssue = JSON.stringify(data)
-    const response = await axios.put<Issues>(`http://localhost:8000/api/v1/election-issues/${id}`,
+    const response = await axios.put<Issues>(`${baseURI}/api/v1/election-issues/${id}`,
       jsonIssue, {
         headers: {
           'Content-Type': 'application/json',
@@ -214,7 +216,7 @@ export const updateIssue = async (id: string, data: Issues) => {
 export const deleteIssue = async (id: string) => {
   try {
     const token = getToken()
-    const response = await axios.delete(`http://localhost:8000/api/v1/election-issues/${id}`, {
+    const response = await axios.delete(`${baseURI}/api/v1/election-issues/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -235,7 +237,7 @@ export const updateUser = async (id: string, data: any) => {
   try {
     const token = getToken()
     const jsonIssue = JSON.stringify(data)
-    const response = await axios.put(`http://localhost:8000/api/v1/users/${id}`,
+    const response = await axios.put(`${baseURI}/api/v1/users/${id}`,
       jsonIssue, {
         headers: {
           'Content-Type': 'application/json',
@@ -257,7 +259,7 @@ export const updateUser = async (id: string, data: any) => {
 export const deleteUser = async (id: string) => {
   try {
     const token = getToken()
-    const response = await axios.delete(`http://localhost:8000/api/v1/users/${id}`, {
+    const response = await axios.delete(`${baseURI}/api/v1/users/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -277,9 +279,7 @@ export const deleteUser = async (id: string) => {
 export const createAnswers = async (data: any) => {
   try {
     const token = getToken()
-    // const jsonIssue = JSON.stringify(data)
-    console.log(data)
-    const response = await axios.post(`http://localhost:8000/api/v1/answers/`,
+    const response = await axios.post(`${baseURI}/api/v1/answers/`,
       data, {
         headers: {
           'Content-Type': 'application/json',
@@ -288,11 +288,6 @@ export const createAnswers = async (data: any) => {
       })
     return response.data
   } catch (error) {
-    // const userStore = useUserAppStore()
-    // const authStore = useAuthAppStore()
-    //
-    // authStore.logout()
-    // userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
