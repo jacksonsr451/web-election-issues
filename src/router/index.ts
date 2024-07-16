@@ -48,6 +48,12 @@ const appRoutes: RouteRecordRaw[] = [
     component: () => import('@/pages/dashboard/Settings.vue'),
     meta: { requiresAuth: true, requiresRole: ['admin'] },
   },
+  {
+    path: '/pesquisas',
+    name: 'Dataprev - Pesquisas',
+    component: () => import('@/pages/IssuesPublicateds.vue'),
+    meta: { requiresAuth: true, requiresRole: ['users', 'admin', 'publisher'] },
+  },
 ]
 
 const router = createRouter({

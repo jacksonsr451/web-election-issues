@@ -3,8 +3,9 @@
     <v-list>
       <v-list-subheader>Navigation</v-list-subheader>
       <v-list-item v-show="hasRole(['user', 'publisher', 'admin'])" prepend-icon="mdi-home" @click="navigateTo('/')">Home</v-list-item>
-      <v-list-item v-show="hasRole(['user', 'publisher', 'admin'])" prepend-icon="mdi-account" @click="navigateTo('/dashboard/pesquisas')">Pesquisas</v-list-item>
+      <v-list-item v-show="hasRole(['user', 'publisher', 'admin'])" prepend-icon="mdi-account" @click="navigateTo('/pesquisas')">Pesquisas publicadas</v-list-item>
       <v-list-subheader v-show="hasRole(['publisher', 'admin'])">Gerenciamento</v-list-subheader>
+      <v-list-item v-show="hasRole(['publisher', 'admin'])" prepend-icon="mdi-account" @click="navigateTo('/dashboard/pesquisas')">Pesquisas</v-list-item>
       <v-list-item v-show="hasRole(['publisher', 'admin'])" prepend-icon="mdi-account" @click="navigateTo('/dashboard/usuarios')">Usuários</v-list-item>
       <v-list-subheader v-show="hasRole(['admin'])">Settings</v-list-subheader>
       <v-list-item v-show="hasRole(['admin'])" prepend-icon="mdi-cog" @click="navigateTo('/dashboard/configuracoes')">Configurações</v-list-item>

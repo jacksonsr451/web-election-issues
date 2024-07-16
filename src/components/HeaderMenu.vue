@@ -5,7 +5,7 @@
       <router-link class="text-decoration-none" to="/"> Dataprev </router-link>
     </v-app-bar-title>
     <div>
-      <router-link v-if="token" to="#" @click="logout">
+      <router-link v-if="token && token !== 'null'" to="#" @click="logout">
         <v-btn prepend-icon="mdi-logout">Logout</v-btn>
       </router-link>
       <router-link v-else to="/auth/login">

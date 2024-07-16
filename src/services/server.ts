@@ -25,6 +25,11 @@ export const serverLogin = async (email: string, password: string) => {
     })
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Login failed:', error)
     throw error
   }
@@ -47,6 +52,11 @@ export const serverLogout = async () => {
 
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -66,6 +76,11 @@ export const getUser = async () => {
 
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -83,6 +98,11 @@ export const getUsers = async () => {
 
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -97,6 +117,11 @@ export const createUser = async (email: string, password: string) => {
 
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -112,6 +137,11 @@ export const getIssues = async () => {
     })
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -148,6 +178,11 @@ export const createIssue = async (data: Issues) => {
       })
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -166,6 +201,11 @@ export const updateIssue = async (id: string, data: Issues) => {
       })
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -181,6 +221,11 @@ export const deleteIssue = async (id: string) => {
     })
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -199,6 +244,11 @@ export const updateUser = async (id: string, data: any) => {
       })
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
@@ -214,6 +264,35 @@ export const deleteUser = async (id: string) => {
     })
     return response.data
   } catch (error) {
+    const userStore = useUserAppStore()
+    const authStore = useAuthAppStore()
+
+    authStore.logout()
+    userStore.unsetUser()
+    console.error('Error to user:', error)
+    throw error
+  }
+}
+
+export const createAnswers = async (data: any) => {
+  try {
+    const token = getToken()
+    // const jsonIssue = JSON.stringify(data)
+    console.log(data)
+    const response = await axios.post(`http://localhost:8000/api/v1/answers/`,
+      data, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    return response.data
+  } catch (error) {
+    // const userStore = useUserAppStore()
+    // const authStore = useAuthAppStore()
+    //
+    // authStore.logout()
+    // userStore.unsetUser()
     console.error('Error to user:', error)
     throw error
   }
