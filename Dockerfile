@@ -6,7 +6,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM node:18 AS production-stage
+FROM node:22 AS production-stage
 
 WORKDIR /app
 
