@@ -2,7 +2,7 @@ FROM node:20.15.1 as build-stage
 
 WORKDIR /app
 COPY package*.json ./
-RUN yarn cache clean
+RUN npm run install
 COPY . .
 RUN npm run build
 
