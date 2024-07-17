@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "serve": "build && serve dist",
+    "serve": "serve dist",
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
