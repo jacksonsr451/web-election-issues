@@ -10,7 +10,6 @@ declare module 'vue' {
     DrawerMenu: typeof import('./components/DrawerMenu.vue')['default']
     FooterMenu: typeof import('./components/FooterMenu.vue')['default']
     HeaderMenu: typeof import('./components/HeaderMenu.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
