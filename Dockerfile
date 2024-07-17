@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+RUN yarn build
 
 FROM node:22 AS production-stage
 
@@ -13,7 +13,7 @@ WORKDIR /app
 COPY --from=build-stage /app/dist /app/dist
 COPY --from=build-stage /app/node_modules /app/node_modules
 
-RUN npm install -g serve
+RUN yarn add -g serve
 
 EXPOSE 3000
 
