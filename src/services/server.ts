@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 import { useUserAppStore } from '@/stores/user'
 import { useAuthAppStore } from '@/stores/auth'
 
-const baseURI = 'http://dataprevia.com.br:8000'
+const baseURI = 'http://195.200.1.150:8000'
 
 interface DecodedToken {
   sub: string
