@@ -2,7 +2,7 @@ FROM node:22 as build-stage
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN yarn install
 COPY . .
 RUN yarn build
 
