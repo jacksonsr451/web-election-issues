@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 import { useUserAppStore } from '@/stores/user'
 import { useAuthAppStore } from '@/stores/auth'
 
-const baseURI = 'http://localhost:8000'
+const baseURI = 'http://api-election-issues'
 
 interface DecodedToken {
   sub: string
