@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 import { useUserAppStore } from '@/stores/user'
 import { useAuthAppStore } from '@/stores/auth'
 
-const baseURI = 'http://195.200.1.150:8000'
+const baseURI = 'http://dataprevia.com.br:8000'
 
 interface DecodedToken {
   sub: string
@@ -173,11 +173,11 @@ export const createIssue = async (data: Issues) => {
     const jsonIssue = JSON.stringify(data)
     const response = await axios.post<Issues>(`${baseURI}/api/v1/election-issues/`,
       jsonIssue, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
     return response.data
   } catch (error) {
     const userStore = useUserAppStore()
@@ -196,11 +196,11 @@ export const updateIssue = async (id: string, data: Issues) => {
     const jsonIssue = JSON.stringify(data)
     const response = await axios.put<Issues>(`${baseURI}/api/v1/election-issues/${id}`,
       jsonIssue, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
     return response.data
   } catch (error) {
     const userStore = useUserAppStore()
@@ -239,11 +239,11 @@ export const updateUser = async (id: string, data: any) => {
     const jsonIssue = JSON.stringify(data)
     const response = await axios.put(`${baseURI}/api/v1/users/${id}`,
       jsonIssue, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
     return response.data
   } catch (error) {
     const userStore = useUserAppStore()
@@ -281,11 +281,11 @@ export const createAnswers = async (data: any) => {
     const token = getToken()
     const response = await axios.post(`${baseURI}/api/v1/answers/`,
       data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
     return response.data
   } catch (error) {
     console.error('Error to user:', error)
