@@ -1,21 +1,13 @@
-FROM node:20.15.1 as build-stage
+FROM node:22 as builder
 
 WORKDIR /app
 COPY package*.json ./
-RUN yarn cache clean
-RUN yarn install
+RUN npm install
 COPY . .
-RUN yarn build
+RUN npm run build
 
-FROM node:20.15.1 AS production-stage
-
-WORKDIR /app
-
-COPY --from=build-stage /app/dist /app/dist
-COPY --from=build-stage /app/node_modules /app/node_modules
-
-RUN yarn add serve
-
-EXPOSE 3000
-
-CMD ["yarn", "serve"]
+FROM nginx:alpine as production-stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
