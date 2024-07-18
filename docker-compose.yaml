@@ -1,39 +1,16 @@
-version: '3.8'
+version: '3'
 
 services:
-  api-election-issues:
+  web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     ports:
-      - "${APP_PORT}:8080"
+      - 8080:80
     restart: always
-    env_file:
-      - .env
-    environment:
-      - APP_HOST=${APP_HOST}
-      - APP_PORT=${APP_PORT}
-      - DATABASE_URL=${DATABASE_URL}
     volumes:
-      - .:/app
-      - ./logs:/app/logs
-    networks:
-      - election_issues_network
-    depends_on:
-      - postgres
-    command: uvicorn api.main:app --host 0.0.0.0 --port 8080 --reload --workers 4
-
-  postgres:
-    image: postgres
-    restart: always
-    ports:
-      - "${POSTGRES_PORT}:5432"
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ./:/elections-issues
+      - /elections-issues/node_modules
     networks:
       - election_issues_network
 
