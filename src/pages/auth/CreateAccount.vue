@@ -19,6 +19,7 @@
                     'Este campo deve ter no máximo 25 caracteres',
                   () => /.+@.+\..+/.test(email) || 'Email inválido',
                 ]"
+                @input="toLowercase"
               />
               <v-text-field
                 v-model="password"
@@ -97,6 +98,10 @@
     password.value = ''
     replayPassword.value = ''
     formHasErrors.value = false
+  }
+
+  const toLowercase = () => {
+    email.value = email.value.toLowerCase()
   }
 
   const submit = async () => {

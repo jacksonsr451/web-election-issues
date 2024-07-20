@@ -18,6 +18,7 @@
             () => /.+@.+\..+/.test(email) || 'Email inválido',
           ]"
           variant="outlined"
+          @input="toLowercase"
         />
 
         <div
@@ -91,6 +92,10 @@
   const userStore = useUserAppStore()
 
   const router = useRouter()
+
+  const toLowercase = () => {
+    email.value = email.value.toLowerCase()
+  }
 
   const submit = async () => {
     formHasErrors.value =

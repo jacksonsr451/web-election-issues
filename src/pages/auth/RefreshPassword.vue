@@ -10,6 +10,7 @@
           prepend-inner-icon="mdi-email-outline"
           :style="{ 'min-width': '200px' }"
           variant="outlined"
+          @input="toLowercase"
         />
 
         <v-btn
@@ -29,4 +30,8 @@
 
 <script lang="ts" setup>
   import HeaderMenu from '@/components/HeaderMenu.vue'
+
+  const toLowercase = (value: string) => {
+    return value.toLowerCase()
+  }
 </script>
