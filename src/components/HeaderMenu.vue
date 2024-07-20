@@ -2,7 +2,7 @@
   <v-app-bar class="border-bottom" flat flex justify="space-between">
     <v-app-bar-nav-icon v-show="hasRole(['user', 'publisher', 'admin']) && token" @click="toggleDrawer" />
     <v-app-bar-title>
-      <router-link class="text-decoration-none" to="/"> Dataprev </router-link>
+      <router-link class="text-decoration-none" to="/"> Dataprevia </router-link>
     </v-app-bar-title>
     <div>
       <router-link v-if="token && token !== 'null'" to="#" @click="logout">
